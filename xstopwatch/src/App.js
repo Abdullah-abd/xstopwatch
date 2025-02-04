@@ -9,8 +9,8 @@ function App() {
     let timer;
     if (isRunning) {
       timer = setInterval(() => {
-        setTime((prevTime) => prevTime + 100);
-      }, 100);
+        setTime((prevTime) => prevTime + 1000);
+      }, 1000);
     } else {
       clearInterval(timer);
     }
@@ -27,16 +27,19 @@ function App() {
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60000);
     const seconds = Math.floor((time % 60000) / 1000);
-    return `${minutes}:${seconds < 100 ? "0" : ""}${seconds}`;
+    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
   return (
     <div className="App">
       <div style={{ textAlign: "center", marginTop: "20px" }}>
         <h1>Stopwatch</h1>
-        <h2>Time:{formatTime(time)}</h2>
-        {!isRunning && <button onClick={handleStart} disabled={isRunning}>Start</button>}
-        {isRunning && <button onClick={handleStop} disabled={!isRunning}>Stop</button>}
+        <h2>Time: {formatTime(time)}</h2>
+        {isRunning ? (
+          <button onClick={handleStop}>Stop</button>
+        ) : (
+          <button onClick={handleStart}>Start</button>
+        )}
         <button onClick={handleReset}>Reset</button>
       </div>
     </div>
